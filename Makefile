@@ -1,4 +1,4 @@
-KERNEL=$(shell uname -r)
+KERNEL=4.14.12
 
 build:
 	#u-root -format=cpio -build=source -o initramfs.cpio
@@ -16,3 +16,12 @@ run:
 
 kill:
 	killall qemu-system-x86_64
+
+get-kernel:
+	docker pull linuxkit/kernel:$(KERNEL)
+	docker rm -f linux-$(KERNEL) | true
+	docker create --name linux-$(KERNEL) linuxkit/kernel:$(KERNEL) ls
+	rm -rf kernel
+	mkdir -p kernel
+	docker export linux-$(KERNEL) | tar -C kernel -xvf -
+	docker rm -f linux-$(KERNEL) | true
