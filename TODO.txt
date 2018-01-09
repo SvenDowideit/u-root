@@ -1,0 +1,10 @@
+
+
+Stuff I've noticed.
+
+`ls -a` doesn't work
+exiting rush results in a weird broken shell. and exiting that crashes
+u-root -files needs docs for src:dst
+u-root -files needs a -verbose to see what its doing
+u-root -files doesn't seem to work for /usr - in fact /usr seems pretty busted
+u-root -files or similar could do with "add all files from this dir recursively"

@@ -1,0 +1,18 @@
+#!/bin/bash -ex
+
+cd $(dirname $0)/..
+ROOTFS=root-fs
+
+IMAGENAME=$1
+if [[ "$IMAGENAME" == "" ]]; then
+	echo "EORROR: please specify an image name to add to the root filesystem"
+	exit -1
+fi
+CONTAINERNAME=$(mktemp -u -t get-imageXXX -p /)
+
+docker pull ${IMAGENAME}
+docker rm -f ${CONTAINERNAME} | true
+docker create --name ${CONTAINERNAME} ${IMAGENAME} ls
+mkdir -p ${ROOTFS}
+docker export ${CONTAINERNAME} | tar -C ${ROOTFS} -xvf -
+docker rm -f ${CONTAINERNAME} | true

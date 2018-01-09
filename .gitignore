@@ -48,3 +48,7 @@ vmlinux
 # Python Virtual Env
 *.env
 *.venv
+
+# from Makefile
+kernel/
+root-fs/

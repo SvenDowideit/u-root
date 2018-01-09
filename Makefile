@@ -4,6 +4,16 @@ build:
 	#u-root -format=cpio -build=source -o initramfs.cpio
 	u-root -format=cpio -build=bb -o initramfs.cpio
 
+build-ctr:
+	scripts/get-image linuxkit/runc:abc3f292653e64a2fd488e9675ace19a55ec7023
+	scripts/get-image linuxkit/containerd:e58a382c33bb509ba3e0e8170dfaa5a100504c5b
+	u-root -format=cpio -build=bb -o initramfs.cpio \
+		-files root-fs/usr/bin/runc:cbin/runc \
+		-files root-fs/usr/bin/ctr:cbin/ctr \
+		-files root-fs/usr/bin/containerd:cbin/containerd \
+		-files root-fs/usr/bin/containerd-shim:cbin/containerd-shim \
+		-files root-fs/etc/containerd/config.toml:etc/containerd/config.toml
+
 run:
 	#-kernel /boot/vmlinuz-$(KERNEL)
 	qemu-system-x86_64 \
