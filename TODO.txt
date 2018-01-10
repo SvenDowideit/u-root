@@ -8,3 +8,7 @@ u-root -files needs docs for src:dst
 u-root -files needs a -verbose to see what its doing
 u-root -files doesn't seem to work for /usr - in fact /usr seems pretty busted
 u-root -files or similar could do with "add all files from this dir recursively"
+
+how is dhcp supposed to work - is dhclient functional with qemu - if so, how?
+
+where should I be adding extra init bits to the code? i want dhclient, then containerd, and ideally cloud-init before..
