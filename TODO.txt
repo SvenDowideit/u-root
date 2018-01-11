@@ -12,3 +12,10 @@ u-root -files or similar could do with "add all files from this dir recursively"
 how is dhcp supposed to work - is dhclient functional with qemu - if so, how?
 
 where should I be adding extra init bits to the code? i want dhclient, then containerd, and ideally cloud-init before..
+
+
+ADD an ssh client!
+
+if you specify a repo to build in - like github.com/SvenDowideit/u-root-tests, how do you specify the tag/branch?
+
+aff shutdown to the init run list, and when the shell exits, get it to be called - atm, idk why its not...

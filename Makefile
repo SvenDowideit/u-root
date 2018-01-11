@@ -8,7 +8,9 @@ build-ctr:
 	scripts/get-image linuxkit/runc:abc3f292653e64a2fd488e9675ace19a55ec7023
 	scripts/get-image linuxkit/containerd:e58a382c33bb509ba3e0e8170dfaa5a100504c5b
 	u-root -format=cpio -build=bb -o initramfs.cpio \
-		-files "root-fs/usr/bin/runc:usr/bin/runc root-fs/usr/bin/ctr:usr/bin/ctr root-fs/usr/bin/containerd:usr/bin/containerd root-fs/usr/bin/containerd-shim:usr/bin/containerd-shim root-fs/etc/containerd/config.toml:etc/containerd/config.toml"
+		-files "root-fs/usr/bin/runc:usr/bin/runc root-fs/usr/bin/ctr:usr/bin/ctr root-fs/usr/bin/containerd:usr/bin/containerd root-fs/usr/bin/containerd-shim:usr/bin/containerd-shim root-fs/etc/containerd/config.toml:etc/containerd/config.toml" \
+		./cmds/* github.com/elves/elvish \
+		github.com/gliderlabs/ssh/_examples/ssh-simple
 
 run:
 	#-kernel /boot/vmlinuz-$(KERNEL)
@@ -17,7 +19,7 @@ run:
 		-nographic -serial mon:stdio -display none -curses \
 		-append "console=ttyS0 " \
 		-net nic,vlan=0,model=virtio \
-		-net user,vlan=0,hostfwd=tcp::2222-:22,hostname=u-boot \
+		-net user,vlan=0,hostfwd=tcp::2222-:2222,hostname=u-boot \
 		-kernel kernel/kernel \
 		-initrd initramfs.cpio
 
