@@ -19,3 +19,7 @@ ADD an ssh client!
 if you specify a repo to build in - like github.com/SvenDowideit/u-root-tests, how do you specify the tag/branch?
 
 aff shutdown to the init run list, and when the shell exits, get it to be called - atm, idk why its not...
+
+work out the size of the qemu memory needed to run an init, and tell the user..
+
+and now we open the way for a golang cloud-init file - which gets compiled at boot...
