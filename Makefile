@@ -4,6 +4,14 @@ build:
 	u-root -format=cpio -build=source -o initramfs.cpio
 	#u-root -format=cpio -build=bb -o initramfs.cpio
 
+build-elvish:
+	u-root \
+		-format=cpio \
+		-build=bb \
+		-o initramfs.cpio \
+		./cmds/* \
+		github.com/elves/elvish
+
 build-alpine:
 	scripts/get-image alpine:latest
 	cd root-fs && find . | cpio -H newc --create > ../alpine.cpio
@@ -23,7 +31,6 @@ build-ctr:
 		-files "root-fs/usr/bin/runc:usr/bin/runc root-fs/usr/bin/ctr:usr/bin/ctr root-fs/usr/bin/containerd:usr/bin/containerd root-fs/usr/bin/containerd-shim:usr/bin/containerd-shim root-fs/etc/containerd/config.toml:etc/containerd/config.toml" \
 		./cmds/* \
 		github.com/SvenDowideit/u-root/_examples/uinit
-#		github.com/elves/elvish \
 #		github.com/gliderlabs/ssh/_examples/ssh-simple
 
 run:
