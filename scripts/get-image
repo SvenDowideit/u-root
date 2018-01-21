@@ -10,7 +10,7 @@ if [[ "$IMAGENAME" == "" ]]; then
 fi
 CONTAINERNAME=$(mktemp -u -t get-imageXXX -p /)
 
-docker pull ${IMAGENAME}
+#docker pull ${IMAGENAME}
 docker rm -f ${CONTAINERNAME} | true
 docker create --name ${CONTAINERNAME} ${IMAGENAME} ls
 mkdir -p ${ROOTFS}

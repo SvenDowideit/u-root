@@ -4,6 +4,15 @@ build:
 	u-root -format=cpio -build=source -o initramfs.cpio
 	#u-root -format=cpio -build=bb -o initramfs.cpio
 
+build-alpine:
+	scripts/get-image alpine:latest
+	cd root-fs && find . | cpio -H newc --create > ../alpine.cpio
+	u-root \
+		-base alpine.cpio \
+		-format=cpio \
+		-build=bb \
+		-o initramfs.cpio
+
 build-ctr:
 	scripts/get-image linuxkit/runc:abc3f292653e64a2fd488e9675ace19a55ec7023
 	scripts/get-image linuxkit/containerd:e58a382c33bb509ba3e0e8170dfaa5a100504c5b
