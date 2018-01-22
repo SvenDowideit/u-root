@@ -1,4 +1,4 @@
-KERNEL=4.14.12
+KERNEL=4.14.14
 
 build:
 	u-root -format=cpio -build=source -o initramfs.cpio
@@ -20,6 +20,32 @@ build-alpine:
 		-format=cpio \
 		-build=bb \
 		-o initramfs.cpio
+
+build-debian:
+	rm -rf root-fs
+	scripts/get-image debian:latest
+	cd root-fs && find . | cpio -H newc --create > ../debian.cpio
+	u-root \
+		-base debian.cpio \
+		-format=cpio \
+		-build=bb \
+		-o initramfs.cpio \
+		./cmds/* \
+		github.com/SvenDowideit/u-root/_examples/uinit
+
+build-docker:
+	# TODO: clear root-fs
+	scripts/get-image alpine:latest
+	scripts/get-image docker:latest
+	scripts/get-image linuxkit/containerd:e58a382c33bb509ba3e0e8170dfaa5a100504c5b
+	cd root-fs && find . | cpio -H newc --create > ../docker.cpio
+	u-root \
+		-base docker.cpio \
+		-format=cpio \
+		-build=bb \
+		-o initramfs.cpio \
+		./cmds/* \
+		github.com/SvenDowideit/u-root/_examples/uinit
 
 build-ctr:
 	scripts/get-image linuxkit/runc:abc3f292653e64a2fd488e9675ace19a55ec7023
